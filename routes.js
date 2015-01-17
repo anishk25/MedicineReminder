@@ -2,6 +2,9 @@ var mongoose = require('mongoose');
 var myCrypt = require('./myCrypt.js');
 var medUser = require('./schema.js');
 var jwt = require("jwt-simple");
+var constants = require('./constants.js');
+var twilio = require('twilio');
+
 var tokenSecret = "hj89l9nbjk9";
 
 
@@ -172,6 +175,23 @@ module.exports = function(app){
 		accessUser(req,res, function(user){
 			res.json(user.medicineLog);
 		});
+	});
+
+	app.post('sendText', function(req, res){
+		var twilioClient = twilio(constants.twilioAccountSid, constants.twilioAuthToken);
+		
+		twilioClient.messages.create({ 
+			to: req.body.to, 
+			from: constants.myTwilioNumber, 
+			body: req.body.message
+		}, function(err, message) { 
+			if(err){
+				res.send(err);
+			}else{
+				res.json(message);
+			}
+		});
+
 	});
 
 }
