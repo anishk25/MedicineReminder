@@ -104,6 +104,8 @@ module.exports = function(app){
 	app.put('/updateSchedule', ensureAuthorized, function(req, res){
 		accessUser(req,res, function(user){
 			user.schedule = JSON.parse(req.body.jsonSchedule);
+			user.notificationFreq = req.body.notificationFreq;
+			user.notificationLimit = req.body.notificationLimit;
 			user.save(function(err){
 				if(err){
 					res.send(err);
@@ -155,7 +157,13 @@ module.exports = function(app){
 
 	app.get('/getSchedule', ensureAuthorized, function(req,res){
 		accessUser(req,res, function(user){
-			res.json(user.schedule);
+			res.json(
+				{
+					schedule: user.schedule,
+					frequency : user.notificationFreq,
+					limit : user.notificationLimit
+
+				});
 		});
 	});
 

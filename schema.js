@@ -11,6 +11,8 @@ var UserSchema = new Schema({
 	sparkToken:String,
 	sparkId:String,
 	schedule:Schema.Types.Mixed,
+	notificationFreq:Number,
+	notificationLimit: Number,
 	medicineLog: [Date]
 });
 
