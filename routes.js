@@ -174,10 +174,6 @@ module.exports = function(app){
 		});
 	});
 
-	app.post('/sendtext', func(req,res){
-
-	});
-
 }
 
 function ensureAuthorized(req, res, next){
