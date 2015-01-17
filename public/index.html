@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Medicine Reminder</title>
+
+   
+
+</head>
+
+<body>
+
+  <div id="wrap">
+  <div id="regbar">
+    <div id="navthing">
+      <h2><a href="#" id="loginform">Login</a> | <a href="#" id = "registerform">Register</a></h2>
+    <div class="login">
+      <div class="arrow-up"></div>
+      <div class="formholder">
+        <div class="randompad">
+           <fieldset>
+             <label name="email">Email</label>
+             <input id = "userEmail" type="email" placeholder="example@example.com" />
+             <label name="password">Password</label>
+             <input id = "userPassword" type="password" />
+             <input id = 'userSubmit' type="submit" value="Login" />
+
+           </fieldset>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<form class="form-horizontal" style = "display: none;" id = "registerInput">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="newName" placeholder="Name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Desired Email</label>
+    <div class="col-sm-8">
+      <input type="email" class="form-control" id="newEmail" placeholder="Email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Desired Password</label>
+    <div class="col-sm-8">
+      <input type="password" class="form-control" id="newPassword" placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Mobile Number</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="newMobile" placeholder="3201562015">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-8">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Remember me
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-8">
+      <button id = 'register' type="submit" class="btn btn-default">Register</button>
+    </div>
+  </div>
+</form>
+
+<div id ='well' class="well" style = " background: #66CCFF; border-color: #66CCFF; display: none">
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Name of Medication</label>
+    <div class="col-sm-5">
+      <input type="email" class="form-control" id="medication" placeholder="Email">
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="row" style = "margin-left: 16%">
+    <div class="col-lg-8">
+      <div class="input-group">
+        <div class="input-group-btn">
+          <button id = 'dayOfWeek' type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Day of the Week <span class="caret"></span></button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Sunday</a></li>
+            <li><a href="#">Monday</a></li>
+            <li><a href="#">Tuesday</a></li>
+            <li><a href="#">Wednesday</a></li>
+            <li><a href="#">Thursday</a></li>
+            <li><a href="#">Friday</a></li>
+            <li><a href="#">Saturday</a></li>            
+          </ul>
+        </div><!-- /btn-group -->
+        <input id = 'time' type="text" class="form-control" placeholder = "HH/MM/SS">
+
+      </div><!-- /input-group -->
+
+      <br>
+      <div class="input-group">
+        <div class="input-group-btn">
+          <button id = 'dayOfWeek' type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Frequency</button>
+         
+        </div><!-- /btn-group -->
+        <input id = 'frequency' type="text" class="form-control" placeholder = "minutes">
+
+      </div><!-- /input-group -->
+
+      <br>
+
+      <div class="input-group">
+        <div class="input-group-btn">
+          <button id = 'dayOfWeek' type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Notification Limit</button>
+         
+        </div><!-- /btn-group -->
+        <input id = 'notificationLimit' type="text" class="form-control" placeholder = "times">
+
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+    </div><!-- /.col-lg-6 -->
+
+    <br>
+
+     
+
+    <button type="button" class="btn btn-success pull-right" style = 'margin-right: 28.5%'>Add to Schedule</button>
+    
+</div><!-- /.row -->
+
+
+<br>
+<br>
+
+  <div id = 'table' class="panel panel-default" style = 'display:none'>
+
+
+
+    <table class = "table">
+      <thead>
+        <tr>
+          <th>Sunday</th>
+          <th>Monsday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+        </tr>
+        <tr>
+        </tr>
+
+      </thead>
+    </table>
+
+  </div>
+  <!-- <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-5">
+      <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+  </div> -->
+</form>
+
+
+
+
+</div>
+
+
+
+  <link rel = "stylesheet" href = "bower_components/bootstrap/dist/css/bootstrap.min.css">
+   <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+ <script type = "text/javascript" src = "bower_components/jquery/dist/jquery.min.js"></script>
+  <script type = "text/javascript" src = "bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="js/index.js"></script>
+
+</body>
+
+</html>
