@@ -177,9 +177,9 @@ module.exports = function(app){
 		});
 	});
 
-	app.post('sendText', function(req, res){
+	app.post('/sendText', function(req, res){
 		var twilioClient = twilio(constants.twilioAccountSid, constants.twilioAuthToken);
-		
+
 		twilioClient.messages.create({ 
 			to: req.body.to, 
 			from: constants.myTwilioNumber, 
