@@ -14,5 +14,5 @@ var UserSchema = new Schema({
 	medicineLog: [Date]
 });
 
-mongoose.connect('mongodb://localhost:27017/MedicineDB');
+mongoose.connect('mongodb://badBois:pennApps25@ds031701.mongolab.com:31701/mytestdatabase');
 module.exports = mongoose.model('MedUser',UserSchema);
