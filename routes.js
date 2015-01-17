@@ -8,7 +8,7 @@ var tokenSecret = "hj89l9nbjk9";
 module.exports = function(app){
 
 	app.get('/',function(req,res){
-		res.end("Medicine Reminder App, Welcome to the API!");
+		response.sendFile('/public/index.html');
 	});
 
 	app.post('/register',function(req,res){
