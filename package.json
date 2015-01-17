@@ -1,0 +1,16 @@
+{
+	"name":"medicine-server",
+	"version":"0.0.1",
+	"description":"This is the API for out Penn Apps Hack",
+	"main":"server.js",
+	"dependencies":{
+		"express":"~4.10.7",
+		"body-parser":"~1.10.1",
+		"mongoose":"~3.8.21",
+		"jwt-simple":"~0.2.0",
+		"cron":"*"
+	},
+	"engines": {
+    	"node": "0.10.x"
+	}
+}
