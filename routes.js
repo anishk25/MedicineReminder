@@ -1,4 +1,3 @@
-var requestsModule = require('./requests.js');
 var mongoose = require('mongoose');
 var myCrypt = require('./myCrypt.js');
 var medUser = require('./schema.js');
