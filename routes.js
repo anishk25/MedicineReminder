@@ -77,6 +77,7 @@ module.exports = function(app){
 			user.email = req.body.email;
 			user.password = myCrypt.encrypt(req.body.password);
 			user.mobile_number = req.body.mobile_number;
+			newUser.accessToken = jwt.encode(u_email,tokenSecret);
 			user.save(function(err){
 				if(err){
 					res.send(err);
