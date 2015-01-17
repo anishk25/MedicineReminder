@@ -8,7 +8,7 @@ var tokenSecret = "hj89l9nbjk9";
 module.exports = function(app){
 
 	app.get('/',function(req,res){
-		response.sendFile('/public/index.html');
+		response.end("Welcome to the medicine bottle API");
 	});
 
 	app.post('/register',function(req,res){
@@ -172,6 +172,10 @@ module.exports = function(app){
 		accessUser(req,res, function(user){
 			res.json(user.medicineLog);
 		});
+	});
+
+	app.post('/sendtext', func(req,res){
+
 	});
 
 }
