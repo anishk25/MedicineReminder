@@ -18,4 +18,3 @@ app.use(function(req, res, next) {
 // app router
 routes(app);
 app.listen(port);
-console.log('The App is running on port ' + port);

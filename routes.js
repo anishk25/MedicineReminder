@@ -8,11 +8,11 @@ var tokenSecret = "hj89l9nbjk9";
 
 module.exports = function(app){
 
-	app.get('/api',function(req,res){
+	app.get('/',function(req,res){
 		res.end("Medicine Reminder App, Welcome to the API!");
 	});
 
-	app.post('/api/register',function(req,res){
+	app.post('/register',function(req,res){
 		var u_name = req.body.name;
 		var u_email = req.body.email;
 		var u_pass = req.body.password;
@@ -44,7 +44,7 @@ module.exports = function(app){
 	});
 
 
-	app.post('/api/login', function(req,res){
+	app.post('/login', function(req,res){
 		var u_email = req.body.email;
 		var u_pass = req.body.password;
 
@@ -72,7 +72,7 @@ module.exports = function(app){
 		})
 	});
 
-	app.put('/api/updateinfo',ensureAuthorized,function(req,res){
+	app.put('/updateinfo',ensureAuthorized,function(req,res){
 		accessUser(req,res, function(user){
 			user.name = req.body.name;
 			user.email = req.body.email;
@@ -88,7 +88,7 @@ module.exports = function(app){
 		})
 	});
 
-	app.put('/api/updateSparkInfo',ensureAuthorized,function(req,res){
+	app.put('/updateSparkInfo',ensureAuthorized,function(req,res){
 		accessUser(req,res, function(user){
 			user.sparkToken = req.body.sparkToken;
 			user.sparkId = req.body.sparkId;
@@ -102,7 +102,7 @@ module.exports = function(app){
 		});
 	});
 
-	app.put('/api/updateSchedule', ensureAuthorized, function(req, res){
+	app.put('/updateSchedule', ensureAuthorized, function(req, res){
 		accessUser(req,res, function(user){
 			user.schedule = JSON.parse(req.body.jsonSchedule);
 			user.save(function(err){
@@ -115,7 +115,7 @@ module.exports = function(app){
 		});
 	});
 
-	app.put('/api/logMedicineDate', ensureAuthorized, function(req, res){
+	app.put('/logMedicineDate', ensureAuthorized, function(req, res){
 		accessUser(req,res, function(user){
 			var dateStr = req.body.date;
 			var linuxTime = parseInt(dateStr);
@@ -132,7 +132,7 @@ module.exports = function(app){
 		});
 	});
 
-	app.get('/api/getUserInfo', ensureAuthorized, function(req,res){
+	app.get('/getUserInfo', ensureAuthorized, function(req,res){
 		accessUser(req,res, function(user){
 			var userInfo = {
 				name: user.name,
@@ -144,7 +144,7 @@ module.exports = function(app){
 		});
 	});
 
-	app.get('/api/getSparkInfo', ensureAuthorized, function(req,res){
+	app.get('/getSparkInfo', ensureAuthorized, function(req,res){
 		accessUser(req,res, function(user){
 			var sparkInfo = {
 				sparkId: user.sparkId,
@@ -154,13 +154,13 @@ module.exports = function(app){
 		});
 	});
 
-	app.get('/api/getSchedule', ensureAuthorized, function(req,res){
+	app.get('/getSchedule', ensureAuthorized, function(req,res){
 		accessUser(req,res, function(user){
 			res.json(user.schedule);
 		});
 	});
 
-	app.get('/api/getLogData', ensureAuthorized, function(req,res){
+	app.get('/getLogData', ensureAuthorized, function(req,res){
 		accessUser(req,res, function(user){
 			res.json(user.medicineLog);
 		});
