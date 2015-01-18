@@ -133,10 +133,8 @@ module.exports = function(app){
 				res.send(err);
 			}else{
 				if(user){
-					var dateStr = req.body.date;
-					var linuxTime = parseInt(dateStr);
-					var date = new Date(linuxTime);
-					user.medicineLog.push(date);
+					var dateStr = req.body.time;
+					user.medicineLog.push(dateStr);
 
 					user.save(function(err){
 						if(err){

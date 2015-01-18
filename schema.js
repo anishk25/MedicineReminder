@@ -13,7 +13,7 @@ var UserSchema = new Schema({
 	schedule:Schema.Types.Mixed,
 	notificationFreq:Number,
 	notificationLimit: Number,
-	medicineLog: [Date]
+	medicineLog: [String]
 });
 
 mongoose.connect('mongodb://badBois:pennApps25@ds031701.mongolab.com:31701/mytestdatabase');

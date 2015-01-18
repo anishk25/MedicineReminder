@@ -37,7 +37,7 @@ function checkForMedTime(){
 	console.log("checking users!");
 	var date  = new Date();
 	var day = date.getDay() + 1;
-	var hours = date.getHours();
+	var hours = date.getHours() + 1;
 	var minutes = date.getMinutes();
 
 	medUser.find(function(err,users){
