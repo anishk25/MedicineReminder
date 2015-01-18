@@ -126,14 +126,13 @@ module.exports = function(app){
 	});
 
 	app.put('/logMedicineDate',function(req, res){
-		medUser.findOne({email: req.email}, function(err,user){
+		medUser.findOne({email: req.body.email}, function(err,user){
 			if(err){
 				res.send(err);
 			}else{
 				if(user){
 					var dateStr = req.body.time;
 					user.medicineLog.push(dateStr);
-
 					user.save(function(err){
 						if(err){
 							res.send(err);
