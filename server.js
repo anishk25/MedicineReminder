@@ -81,7 +81,7 @@ function sendText(name,number,sparkToken,sparkID){
 		body: msg
 	}, function(err, message) { 
 		if(!err){
-			sendRequestToSpark(name,sparkToken,sparkID);
+			sendRequestToSpark(name);
 			console.log(message);
 		}else{
 			console.log(err);
@@ -90,17 +90,21 @@ function sendText(name,number,sparkToken,sparkID){
 
 }
 
-function sendRequestToSpark(name,sparkToken,sparkID){
+function sendRequestToSpark(name){
 	var msg = "Please take your medicine now " + name;
-	var req_body = encodeURI("access_token="+sparkToken+"&message="+msg);
-	var req_uri = 'https://api.spark.io/v1/devices/'+ sparkID +'/sendTextMsgs'
+	var req_uri = 'https://api.spark.io/v1/devices/'+ constants.mySparkID+ '/sendTextMsgs';
+	var fData = {
+  		access_token: constants.mySparkToken,
+  		message: msg
+ 	};
 	request(
 		{
 			method:'POST',
 			uri:req_uri,
-			body:req_body
+			form:fData
 		},function(err,response,body){
-				console.log(body);
+			console.log(body);
 		}
 	);
 }
+
