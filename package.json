@@ -1,7 +1,7 @@
 {
 	"name":"medicine-server",
 	"version":"0.0.1",
-	"description":"This is the API for out Penn Apps Hack",
+	"description":"This is the API for out Penn Apps Hack.",
 	"main":"server.js",
 	"dependencies":{
 		"express":"~4.10.7",
