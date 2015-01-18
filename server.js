@@ -52,6 +52,7 @@ function checkForMedTime(){
 							var split = time.split(':');
 							var s_hour = parseInt(split[0]);
 							var s_min = parseInt(split[1]);
+							console.log("Parsed Time " + s_hour + ":" + s_min);
 							if(s_hour == hours && (s_min == minutes || s_min == minutes + 1 || s_min == minutes - 1)){
 								// send text message to user
 								console.log("sending text message to " + c_user.name);
@@ -80,6 +81,8 @@ function sendText(name,number,sparkToken,sparkID){
 		if(!err){
 			//sendRequestToSpark(name,sparkToken,sparkID);
 			console.log(message);
+		}else{
+			console.log(err);
 		}
 	});
 
