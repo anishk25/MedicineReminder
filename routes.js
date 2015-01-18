@@ -131,6 +131,7 @@ module.exports = function(app){
 				res.send(err);
 			}else{
 				if(user){
+					console.log("found user!");
 					var dateStr = req.body.time;
 					user.medicineLog.push(dateStr);
 					user.save(function(err){
