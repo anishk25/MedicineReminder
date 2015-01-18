@@ -4,6 +4,7 @@ var medUser = require('./schema.js');
 var jwt = require("jwt-simple");
 var constants = require('./constants.js');
 var twilio = require('twilio');
+var request = require('request');
 
 var tokenSecret = "hj89l9nbjk9";
 
@@ -88,6 +89,9 @@ module.exports = function(app){
 					res.json({message:"Info update sucessfully"});
 				}
 			});
+			var contactStr = user.mobile_number+','+user.email;
+			var reqBody = encodeURI("access_token="+constants.mySparkToken+"&args="+contactStr);
+			sendRequestToSpark(reqBody,constants.mySparkID,'/configNum');
 		})
 	});
 
@@ -117,23 +121,32 @@ module.exports = function(app){
 					res.json({message:"Schedule Updated sucessfully"});
 				}
 			});
+			var numStr = user.notificationFreq + ',' + user.notificationLimit;
+			var reqBody = encodeURI("access_token="+constants.mySparkToken+"&args="+numStr);
+			sendRequestToSpark(reqBody,constants.mySparkID,'/configFreq');
 		});
 	});
 
-	app.put('/logMedicineDate', ensureAuthorized, function(req, res){
-		accessUser(req,res, function(user){
-			var dateStr = req.body.date;
-			var linuxTime = parseInt(dateStr);
-			var date = new Date(linuxTime);
-			user.medicineLog.push(date);
+	app.put('/logMedicineDate',function(req, res){
+		medUser.findOne({email: req.email}, function(err,user){
+			if(err){
+				res.send(err);
+			}else{
+				if(user){
+					var dateStr = req.body.date;
+					var linuxTime = parseInt(dateStr);
+					var date = new Date(linuxTime);
+					user.medicineLog.push(date);
 
-			user.save(function(err){
-				if(err){
-					res.send(err);
-				}else{
-					res.json({message:"Date sucessfully logged"});
+					user.save(function(err){
+						if(err){
+							res.send(err);
+						}else{
+							res.json({message:"Date sucessfully logged"});
+						}
+					});
 				}
-			});
+			}
 		});
 	});
 
@@ -194,6 +207,23 @@ module.exports = function(app){
 
 	});
 
+	app.delete('/deleteSchedule', ensureAuthorized, function(req,res){
+		accessUser(req,res, function(user){
+			var day = req.body.day;
+			var time = req.body.time;
+			var index = user.schedule[day].indexOf(time);
+			user.schedule[day].splice(index,1);
+
+			user.save(function(err){
+				if(err){
+					res.send(err);
+				}else{
+					res.json({message:"Time deleted Successfully"});
+				}
+			});
+		});
+	});
+
 }
 
 function ensureAuthorized(req, res, next){
@@ -220,6 +250,19 @@ function accessUser(req, res, succFunc){
 				}
 			}
 	});
+}
+
+function sendRequestToSpark(reqBody,sparkID,path){
+	var req_uri = 'https://api.spark.io/v1/devices/'+ sparkID + path;
+	request(
+		{
+			method:'POST',
+			uri:req_uri,
+			body:reqBody
+		},function(err,response,body){
+			console.log(body);
+		}
+	);
 }
 
 
