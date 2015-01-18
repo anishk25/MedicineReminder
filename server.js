@@ -38,8 +38,8 @@ function checkForMedTime(){
 	console.log("checking users!");
 	var date  = new Date();
 	var day = date.getDay() + 1;
-	var hours = (date.getHours() + 1)-1;
-	//hours = hours < 0 ? 24 + hours : hours;
+	var hours = (date.getHours() + 1)-6;
+	hours = hours < 0 ? 24 + hours : hours;
 	var minutes = date.getMinutes();
 	var c_user;
 	console.log("Time now is " + hours + ":" + minutes);
