@@ -260,7 +260,7 @@ function sendRequestToSpark(sparkID,path,arguments){
 		{
 			method:'POST',
 			uri:req_uri,
-			formData:fData
+			form:fData
 		},function(err,response,body){
 			console.log(body);
 		}
