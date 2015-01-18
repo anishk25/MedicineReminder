@@ -9,7 +9,8 @@
 		"mongoose":"~3.8.21",
 		"jwt-simple":"~0.2.0",
 		"cron":"*",
-		"twilio":"~1.10.0"
+		"twilio":"~1.10.0",
+		"request":"2.51.0"
 	},
 	"engines": {
     	"node": "0.10.x"

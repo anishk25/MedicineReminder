@@ -114,7 +114,7 @@ module.exports = function(app){
 				if(err){
 					res.send(err);
 				}else{
-					res.json({message:"Spark Info Updated sucessfully"});
+					res.json({message:"Schedule Updated sucessfully"});
 				}
 			});
 		});
