@@ -5,6 +5,7 @@ var cron = require('cron');
 var medUser = require('./schema.js');
 var twilio = require('twilio');
 var request = require('request');
+var constants = require('./constants.js');
 
 var app = express();
 var port = process.env.PORT||8080;
@@ -37,29 +38,28 @@ function checkForMedTime(){
 	console.log("checking users!");
 	var date  = new Date();
 	var day = date.getDay() + 1;
-	var hours = (date.getHours() + 1) - 6;
-	hours = hours < 0 ? 24 + hours : hours;
+	var hours = (date.getHours() + 1)-1;
+	//hours = hours < 0 ? 24 + hours : hours;
 	var minutes = date.getMinutes();
-
+	var c_user;
 	console.log("Time now is " + hours + ":" + minutes);
 	medUser.find(function(err,users){
 		if(!err){
-			for(var c_user in users){
-				var schedule = c_user.schedule;
+			for(var u = 0 ; u < users.length; u++){
+				var schedule = users[u]['schedule'];
 				for(var c_day in schedule){
-					if(parseInt(c_day) == day){
-						for(var time in schedule[day]){
-							var split = time.split(':');
-							var s_hour = parseInt(split[0]);
-							var s_min = parseInt(split[1]);
-							console.log("Parsed Time " + s_hour + ":" + s_min);
-							if(s_hour == hours && (s_min == minutes || s_min == minutes + 1 || s_min == minutes - 1)){
-								// send text message to user
-								console.log("sending text message to " + c_user.name);
+					var times = schedule[c_day];
+					if(c_day == day){
+						for(var t = 0; t < times.length; t++){
+							var split = times[t].split(':');
+							var s_hour = split[0];
+							var s_min = split[1];
+							if(s_hour == hours && (s_min == minutes)){
+								console.log("sending text message to " + users[u]['name']);
 								//sendText(user.name, user.mobile_number,user.sparkToken,user.sparkId);
 								var sparkID = "53ff6f066667574829262367";
 								var sparkToken = "9bc94f1eafef16d3c1a2f14e942442c1b9393bcf";
-								sendText(user.name, user.mobile_number,sparkToken,sparkID);
+								sendText(users[u]['name'], users[u]['mobile_number'],sparkToken,sparkID);
 							}
 						}
 					}
@@ -70,6 +70,8 @@ function checkForMedTime(){
 	setTimeout(checkForMedTime,schedulerDelay);
 }
 
+
+
 function sendText(name,number,sparkToken,sparkID){
 	var twilioClient = twilio(constants.twilioAccountSid, constants.twilioAuthToken);
 	var msg = "Please take your medicine now " + name;
@@ -79,7 +81,7 @@ function sendText(name,number,sparkToken,sparkID){
 		body: msg
 	}, function(err, message) { 
 		if(!err){
-			//sendRequestToSpark(name,sparkToken,sparkID);
+			sendRequestToSpark(name,sparkToken,sparkID);
 			console.log(message);
 		}else{
 			console.log(err);
