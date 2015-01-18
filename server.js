@@ -78,7 +78,8 @@ function sendText(name,number,sparkToken,sparkID){
 		body: msg
 	}, function(err, message) { 
 		if(!err){
-			sendRequestToSpark(name,sparkToken,sparkID);
+			//sendRequestToSpark(name,sparkToken,sparkID);
+			console.log(message);
 		}
 	});
 
