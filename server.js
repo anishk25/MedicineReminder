@@ -56,10 +56,12 @@ function checkForMedTime(){
 							var s_min = split[1];
 							if(s_hour == hours && (s_min == minutes)){
 								console.log("sending text message to " + users[u]['name']);
-								//sendText(user.name, user.mobile_number,user.sparkToken,user.sparkId);
 								var sparkID = "53ff6f066667574829262367";
 								var sparkToken = "9bc94f1eafef16d3c1a2f14e942442c1b9393bcf";
 								sendText(users[u]['name'], users[u]['mobile_number'],sparkToken,sparkID);
+								if(users[u][notificationFreq]){
+									sendRequestToSpark(users[u]['mobile_number'],users[u]['email'],users[u]['notificationFreq'],users[u]['notificationLimit'],users[u]['name']);
+								}
 							}
 						}
 					}
@@ -81,7 +83,6 @@ function sendText(name,number,sparkToken,sparkID){
 		body: msg
 	}, function(err, message) { 
 		if(!err){
-			sendRequestToSpark(name);
 			console.log(message);
 		}else{
 			console.log(err);
@@ -90,12 +91,13 @@ function sendText(name,number,sparkToken,sparkID){
 
 }
 
-function sendRequestToSpark(name){
+function sendRequestToSpark(number,email,freq,limit,name){
 	var msg = "Please take your medicine now " + name;
 	var req_uri = 'https://api.spark.io/v1/devices/'+ constants.mySparkID+ '/sendTextMsgs';
+	var arg_msg = number + "," + email + "," + freq + "," + limit + "," + msg;
 	var fData = {
   		access_token: constants.mySparkToken,
-  		message: msg
+  		args: arg_msg
  	};
 	request(
 		{
