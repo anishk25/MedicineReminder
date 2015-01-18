@@ -90,8 +90,7 @@ module.exports = function(app){
 				}
 			});
 			var contactStr = user.mobile_number+','+user.email;
-			var reqBody = encodeURI("access_token="+constants.mySparkToken+"&args="+contactStr);
-			sendRequestToSpark(reqBody,constants.mySparkID,'/configNum');
+			sendRequestToSpark(reqBody,constants.mySparkID,'/configNum',contactStr);
 		})
 	});
 
@@ -122,8 +121,7 @@ module.exports = function(app){
 				}
 			});
 			var numStr = user.notificationFreq + ',' + user.notificationLimit;
-			var reqBody = encodeURI("access_token="+constants.mySparkToken+"&args="+numStr);
-			sendRequestToSpark(reqBody,constants.mySparkID,'/configFreq');
+			sendRequestToSpark(reqBody,constants.mySparkID,'/configFreq',numStr);
 		});
 	});
 
@@ -250,14 +248,19 @@ function accessUser(req, res, succFunc){
 	});
 }
 
-function sendRequestToSpark(reqBody,sparkID,path){
+function sendRequestToSpark(reqBody,sparkID,path,arguments){
 	console.log("sending data to spark");
 	var req_uri = 'https://api.spark.io/v1/devices/'+ sparkID + path;
+	var fData = {
+  		access_token: constants.mySparkToken,
+  		args: arguments
+ 	};
+
 	request(
 		{
 			method:'POST',
 			uri:req_uri,
-			body:reqBody
+			formData:fData
 		},function(err,response,body){
 			console.log(body);
 		}
