@@ -204,7 +204,7 @@ function ensureAuthorized(req, res, next){
 		req.token = bearerToken;
 		next();
 	}else{
-		response.send(403);
+		res.send(403);
 	}
 }
 
