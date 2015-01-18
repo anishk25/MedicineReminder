@@ -125,7 +125,7 @@ module.exports = function(app){
 		});
 	});
 
-	app.put('/logMedicineDate',function(req, res){
+	app.post('/logMedicineDate',function(req, res){
 		medUser.findOne({email: req.body.email}, function(err,user){
 			if(err){
 				res.send(err);
