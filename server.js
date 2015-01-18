@@ -40,6 +40,7 @@ function checkForMedTime(){
 	var hours = date.getHours() + 1;
 	var minutes = date.getMinutes();
 
+	conole.log("Time now is " + hours + ":" + minutes);
 	medUser.find(function(err,users){
 		if(!err){
 			for(var c_user in users){
