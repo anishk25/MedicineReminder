@@ -251,6 +251,7 @@ function accessUser(req, res, succFunc){
 }
 
 function sendRequestToSpark(reqBody,sparkID,path){
+	console.log("sending data to spark");
 	var req_uri = 'https://api.spark.io/v1/devices/'+ sparkID + path;
 	request(
 		{
