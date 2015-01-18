@@ -125,13 +125,12 @@ module.exports = function(app){
 		});
 	});
 
-	app.post('/logMedicineDate',function(req, res){
+	app.put('/logMedicineDate',function(req, res){
 		medUser.findOne({email: req.body.email}, function(err,user){
 			if(err){
 				res.send(err);
 			}else{
 				if(user){
-					console.log("found user!");
 					var dateStr = req.body.time;
 					user.medicineLog.push(dateStr);
 					user.save(function(err){
